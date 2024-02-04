@@ -23,6 +23,18 @@ class UserRepository{
             throw error;
         }
      }
+
+     async getById(userId){
+        try {
+            const user=await User.findByPk(userId,{
+                attributes:['email','id']
+            });
+            return user;
+        } catch (error) {
+            console.log("Something Went Woring In the Repository Layer");
+            throw error;
+        }
+     }
 }
 
 module.exports = UserRepository;
