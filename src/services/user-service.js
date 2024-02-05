@@ -1,6 +1,7 @@
 const { JWT_KEY } = require('../config/serverConfig');
 const UserRepository=require('../repository/user-repository');
 const jwt=require('jsonwebtoken');
+const bcrypt=require('bcryptjs');
 class UserService{
     constructor(){
         this.userRepository=new UserRepository();
@@ -38,6 +39,17 @@ class UserService{
         throw error;
     }
  }
+
+ checkPassword(userInputPassword,encryptedPassword){
+    try {
+        const result=bcrypt.compareSync(userInputPassword,encryptedPassword);
+        return result;
+    } catch (error) {
+        console.log("Something Went Wrong in Password Verification");
+        throw error;
+    }
+ }
+ 
 
 }
 
