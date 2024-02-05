@@ -37,20 +37,17 @@ class UserRepository{
      }
 
 
-      async getByEmail(userEmail){
+     async getByEmail(userEmail) {
         try {
-            const user=await User.findOne({
-                where:{
-                    email:userEmail
-                }
-               
-            })
+            const user = await User.findOne({where: {
+                email: userEmail
+            }});
             return user;
         } catch (error) {
-            console.log("Something Went Woring In the Repository Layer");
+            console.log("Something went wrong on repository layer");
             throw error;
         }
-      }
+    }
 
 
 }

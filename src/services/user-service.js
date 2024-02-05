@@ -20,13 +20,13 @@ class UserService{
     }
 
 
-    async signIn(email,plainPassword){
+    async signIn(email, plainPassword){
         try {
             //step1-->>>> Find User By Email
-            const user=await this.userRepository.getByEmail(email);
+            const user = await this.userRepository.getByEmail(email);
             //step2--> Compare Incoming PlainPAssword with  Store USer object Encrypted Password    
-            const passwordMatch=this.checkPassword(plainPassword,user.passsword);
-            if(!passwordMatch){
+            const passwordsMatch = this.checkPassword(plainPassword, user.password);
+            if(!passwordsMatch){
                 console.log("Password Does Not Match");
                 throw {error:"Incorrect Password"};
 
