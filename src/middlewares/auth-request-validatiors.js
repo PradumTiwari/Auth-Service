@@ -12,4 +12,20 @@ const validateUserAuth=(req,res,next)=>{
     next();
 }
 
-module.exports={validateUserAuth}
+const validateisAdmin=(req,res,next)=>{
+    if(!req.body.id){
+        return res.status(400).json({
+            message:"ID is required",
+            sucess:false,
+          data:{},
+          err:"ID is missing"
+        })
+    }
+    next();
+}
+
+module.exports={
+    validateUserAuth,
+    validateisAdmin
+
+}
