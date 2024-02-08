@@ -49,7 +49,7 @@ class UserService{
             if(!response){
                 throw {error:"Token Verification Failed"};
             }
-            const user=this.userRepository.getById(response.id);
+            const user=await this.userRepository.getById(response.id);
             if(!user){
                 throw {error:"User Not Found with the corresponding Token Exists"};
             }
