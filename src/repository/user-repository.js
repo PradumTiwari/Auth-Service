@@ -1,5 +1,6 @@
 const {User,Role}=require('../models/index')
 const ValidationError=require('../utils/validation-error')
+const UserEror=require('../utils/user-error')
 class UserRepository{
 
      async create(data){
@@ -56,6 +57,9 @@ class UserRepository{
     async isAdmin(userId){
        try {
         const user=await User.findByPk(userId);
+        if(!user){
+            throw new UserEror("User Not Found",404,["User Not Found"]);
+        }
         const adminRole=await Role.findOne({
             where:{
                 name:"ADMIN",
@@ -63,6 +67,7 @@ class UserRepository{
         })
         return user.hasRole(adminRole);
        } catch (error) {
+        console.log(error);
         console.log("Something Went Woring In the Repository Layer");
         throw error;
        }

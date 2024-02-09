@@ -3,6 +3,7 @@ const UserRepository=require('../repository/user-repository');
 const jwt=require('jsonwebtoken');
 const ValidationError=require('../utils/validation-error')
 const bcrypt=require('bcryptjs');
+const PasswordError=require('../utils/passwordError');
 
 class UserService{
     constructor(){
@@ -32,7 +33,7 @@ class UserService{
             const passwordsMatch = this.checkPassword(plainPassword, user.password);
             if(!passwordsMatch){
                 console.log("Password Does Not Match");
-                throw {error:"Incorrect Password"};
+                throw new PasswordError("Password Does Not Match",401,["Please Check Your Password Suggestion by Pradum"]); 
 
             }
 
@@ -41,6 +42,7 @@ class UserService{
              //Step 4---> Return the Token
              return newJWT;
         } catch (error) {
+            console.log(error);
             console.log("Something Went Woring In the Service Layer");
             throw error;
         }
@@ -73,6 +75,7 @@ class UserService{
 
  createToken(user){
     try {
+        
         const result=jwt.sign(user,JWT_KEY,{expiresIn:'1d'});
         return result;
     } catch (error) {
@@ -98,6 +101,7 @@ class UserService{
         const result=bcrypt.compareSync(userInputPassword,encryptedPassword);
         return result;
     } catch (error) {
+
         console.log("Something Went Wrong in Password Verification");
         throw error;
     }
