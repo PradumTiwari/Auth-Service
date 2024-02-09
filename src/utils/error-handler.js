@@ -2,16 +2,12 @@ const {StatusCodes}=require('http-status-codes');
 
 class AppErrors extends Error{
     constructor(name,message,explaination,statusCode){
+        super();
        this.message="Something went wrong",
        this.explaination="Something Went Wrong",
        this.name="AppErrr",
        this.statusCode=StatusCodes.INTERNAL_SERVER_ERROR
     }
-
-  
-
-
-
 
 
 }

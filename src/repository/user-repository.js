@@ -10,6 +10,7 @@ class UserRepository{
         } catch (error) {
             if(error.name==="SequelizeValidationError"){
             let validationError = new ValidationError(error);
+            console.log(validationError);
             }
             console.log("Something Went Woring In the Repository Layer");
             throw error;
